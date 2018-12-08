@@ -18,7 +18,7 @@ class CreateSubscribersTable extends Migration
             $table->unsignedInteger('business_id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
