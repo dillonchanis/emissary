@@ -1,11 +1,6 @@
 <template>
   <aside class="w-full flex-none md:max-w-xs bg-grey-lightest border-r-2 border-grey-light p-4">
-    <div class="logo mb-1">
-      <i class="fas fa-mail-bulk mr logo__icon"></i>
-      <span class="font-display font-black text-xl logo__text">
-        Emissary
-      </span>
-    </div>
+    <emissary-logo/>
 
     <div class="mb-16 font-bold text-sm">
       Bespoke Coffee & Dry Goods
@@ -53,8 +48,13 @@
 </template>
 
 <script>
+import EmissaryLogo from '@/components/Logo'
+
 export default {
-  name: 'Sidebar'
+  name: 'Sidebar',
+  components: {
+    EmissaryLogo
+  }
 }
 </script>
 
@@ -64,16 +64,5 @@ export default {
   border-left: 3px solid #38A89D;
   padding-left: 5px;
   font-weight: bold;
-}
-
-.logo__icon,
-.logo__text {
-  color: #333333ad;
-  transition: color 0.25s ease-in-out;
-}
-
-.logo:hover .logo__icon,
-.logo:hover .logo__text {
-  color: #38A89D;
 }
 </style>
