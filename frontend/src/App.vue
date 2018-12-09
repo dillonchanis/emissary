@@ -1,18 +1,12 @@
 <template>
-  <div id="app" class="font-sans antialiased min-h-screen md:flex">
-    <app-sidebar />
-    <div class="flex-1 container mx-auto py-4 px-8 max-h-screen overflow-scroll">
-      <router-view/>
-    </div>
+  <div id="app" class="font-sans antialiased">
+    <router-view />
   </div>
 </template>
 
 <script>
-import AppSidebar from '@/components/navigation/Sidebar'
-
 export default {
-  name: 'App',
-  components: { AppSidebar }
+  name: 'App'
 }
 </script>
 
