@@ -1,17 +1,27 @@
 import store from '../store'
 
 const beforeEach = (to, from, next) => {
-  store.dispatch('auth/checkTokenExists').then(() => {
-    next()
-  }).catch(() => {
-    if (to.meta.requiresAuth) {
-      window.localstorage.setItem('intended', to.name)
-      next({ name: 'login' })
-      return
-    }
+  const routeRequiresAuth = to.matched.some(route => route.meta.requiresAuth)
+  const userIsAuth = store.state.auth.user.authenticated
+  const intendedRoute = localStorage.getItem('intended')
 
-    next()
-  })
+  if (intendedRoute && userIsAuth) {
+    next({ name: intendedRoute })
+    return
+  }
+
+  if (routeRequiresAuth && !userIsAuth) {
+    localStorage.setItem('intended', to.name)
+    next({ name: 'login' })
+    return
+  }
+
+  if (to.path === '/login' && userIsAuth) {
+    next({ name: 'home' })
+    return
+  }
+
+  next()
 }
 
 export default beforeEach
