@@ -1,12 +1,12 @@
 import axios from 'axios'
 import TokenService from '@/services/token.service'
 import { setHttpToken } from '@/utils'
-const BASE_URL = '/api'
+const BASE_URL = '/api/auth'
 
 const UserService = {
   /** Register a User */
-  register () {
-
+  async register (credentials) {
+    await axios.post(`${BASE_URL}/register`, credentials)
   },
 
   /**
@@ -15,7 +15,7 @@ const UserService = {
    * @return access_token
    */
   async login (credentials) {
-    const response = await axios.post(`${BASE_URL}/auth/login`, credentials)
+    const response = await axios.post(`${BASE_URL}/login`, credentials)
     TokenService.save(response.data.access_token)
     setHttpToken(response.data.access_token)
 
@@ -29,7 +29,7 @@ const UserService = {
    * @return access_token
    */
   async logout () {
-    await axios.post(`${BASE_URL}/auth/logout`)
+    await axios.post(`${BASE_URL}/logout`)
     TokenService.remove()
     setHttpToken(null)
   }

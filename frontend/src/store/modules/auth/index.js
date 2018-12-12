@@ -16,7 +16,9 @@ export default {
     user: (state) => state.user
   },
   actions: {
-    register () {},
+    async register (context, payload) {
+      await UserService.register(payload)
+    },
     async login ({ commit, dispatch }, payload) {
       await UserService.login(payload)
 
