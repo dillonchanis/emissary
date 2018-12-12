@@ -78,12 +78,14 @@ export default {
     ...mapActions({
       register: 'auth/register'
     }),
-    submit () {
-      this.register({
+    async submit () {
+      await this.register({
         name: this.name,
         email: this.email,
         password: this.password
       })
+
+      this.$router.replace({ name: 'home' })
     }
   }
 }

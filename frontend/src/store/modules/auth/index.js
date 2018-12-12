@@ -13,11 +13,15 @@ export default {
     }
   },
   getters: {
+    authenticated: (state) => state.user.authenticated,
     user: (state) => state.user
   },
   actions: {
-    async register (context, payload) {
-      await UserService.register(payload)
+    async register ({ commit, dispatch }, payload) {
+      const response = await UserService.register(payload)
+
+      commit(types.SET_AUTHENTICATED, true)
+      commit(types.SET_USER, response.data.user)
     },
     async login ({ commit, dispatch }, payload) {
       await UserService.login(payload)

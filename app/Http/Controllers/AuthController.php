@@ -23,10 +23,19 @@ class AuthController extends Controller
     {
         $credentials = request(['name', 'email', 'password']);
 
-        return User::create([
+        $user = User::create([
             'name' => $credentials['name'],
             'email' => $credentials['email'],
             'password' => Hash::make($credentials['password'])
+        ]);
+
+        $token = auth()->attempt(request(['email', 'password']));
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => $user
         ]);
     }
 

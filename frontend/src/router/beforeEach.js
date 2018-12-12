@@ -2,16 +2,9 @@ import store from '../store'
 
 const beforeEach = (to, from, next) => {
   const routeRequiresAuth = to.matched.some(route => route.meta.requiresAuth)
-  const userIsAuth = store.state.auth.user.authenticated
-  const intendedRoute = localStorage.getItem('intended')
-
-  if (intendedRoute && userIsAuth) {
-    next({ name: intendedRoute })
-    return
-  }
+  const userIsAuth = store.getters['auth/authenticated']
 
   if (routeRequiresAuth && !userIsAuth) {
-    localStorage.setItem('intended', to.name)
     next({ name: 'login' })
     return
   }

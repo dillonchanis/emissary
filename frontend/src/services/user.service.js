@@ -6,7 +6,11 @@ const BASE_URL = '/api/auth'
 const UserService = {
   /** Register a User */
   async register (credentials) {
-    await axios.post(`${BASE_URL}/register`, credentials)
+    const response = await axios.post(`${BASE_URL}/register`, credentials)
+    TokenService.save(response.data.access_token)
+    setHttpToken(response.data.access_token)
+
+    return response
   },
 
   /**
