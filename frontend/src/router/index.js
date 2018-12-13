@@ -2,13 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import beforeEach from './beforeEach'
 
-// Auth Routes
-import Login from '@/views/auth/Login.vue'
-import Register from '@/views/auth/Register.vue'
+// Auth Route
+import AuthView from '@/views/auth/Auth'
 
 // App Routes
-import Base from '@/views/dashboard/Base.vue'
-import Home from '@/views/dashboard/Home.vue'
+import Base from '@/views/dashboard/Base'
+import Home from '@/views/dashboard/Home'
 
 Vue.use(Router)
 
@@ -31,17 +30,9 @@ const router = new Router({
       }
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login,
-      meta: {
-        requiresAuth: false
-      }
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Register,
+      path: '/auth',
+      name: 'auth',
+      component: AuthView,
       meta: {
         requiresAuth: false
       }
